@@ -1,1 +1,1 @@
-# Test_repository
+ Landslides are one of the most widespread and devastating geohazards in the world. Landslide susceptibility mapping is a key preliminary step in risk mitigation strategies. Susceptibility maps depict the spatial probability levels for a certain area to be prone to landslides, based on local environmental variables. A second key step is exposure assessment which implies counting (or estimating) of people, property, systems, or other elements present in hazard zones.
