@@ -3,5 +3,7 @@
  ### Project template
  https://github.com/Diuke/polimi-webgis-class-2024/tree/simple-website
 
- ### HTML5 site templates
+ ### HTML5 website templates
  https://html5up.net/
+ https://htmltemplates.co/
+ https://bootstrapmade.com/
