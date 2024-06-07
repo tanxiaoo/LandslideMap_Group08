@@ -12,3 +12,6 @@
 
   ### Example
  https://fededengi.github.io/polimi-webgis-class-2023/index.html 
+ 
+  ### QGISLab08
+ https://polimi365-my.sharepoint.com/:f:/r/personal/10963273_polimi_it/Documents/QGISLab08?csf=1&web=1&e=uqiDno
