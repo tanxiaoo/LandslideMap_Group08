@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!--
+	Twenty by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+  <head>
+    <title>Workflow</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link
+      rel="stylesheet"
+      href="../node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+
+    <link rel="stylesheet" href="../assets/css/main.css" />
+    <link rel="stylesheet" href="../assets/css/custom-styles.css" />
+  </head>
+  <body class="left-sidebar is-preload">
+    <div id="page-wrapper">
+      <!-- Header -->
+      <header id="header">
+        <h1 id="logo"><a href="../index.html">My WebGIS - Results</a></h1>
+        <nav id="nav">
+          <ul>
+            <li class="current"><a href="../index.html">HOME</a></li>
+            <li class="current"><a href="workflow.html">Workflow</a></li>
+            <li class="current"><a href="result.html">Results</a></li>
+            <li class="current"><a href="webgis.html">WebGIS</a></li>
+          </ul>
+        </nav>
+      </header>
+
+      <!-- Main -->
+      <article id="main">
+        <header class="special container">
+          <span class="icon solid fa-globe"></span>
+          <h2>
+            <strong style="font-size: 2em">Workflow</strong>
+          </h2>
+          <p style="font-size: 1.5em">
+            In this part, we will show you all the steps we did to obtain all
+            our final results including susceptibility map and exposure
+            assessment.
+          </p>
+        </header>
+        <!--Step1-->
+        <div class="wrapper style4 container">
+          <div>
+            <div>
+              <h2 style="text-align: center">Step1 Data Preprocessing</h2>
+              <!--Origin Data-->
+              <h3 style="text-align: center">Origin Data</h3>
+              <div class="container text-center">
+                <div class="row">
+                  <div class="col">
+                    <figure>
+                      <img
+                        src="../images/step1/dtm.png"
+                        alt=""
+                        style="max-width: 100%; height: auto"
+                      />
+                      <figcaption>
+                        DTM<br />Raster dataset representing the terrain surface
+                        consisting of XYZ coordinates. Not only elevation but
+                        helps in deriving additional information.
+                      </figcaption>
+                    </figure>
+                  </div>
+                  <div class="col">
+                    <figure>
+                      <img
+                        src="../images/step1/ndvi.png"
+                        alt=""
+                        style="max-width: 100%; height: auto"
+                      />
+                      <figcaption>
+                        NDVI<br />The Normalized Difference Vegetation Index
+                        (NDVI) is an indicator of the greenness of the biomas
+                      </figcaption>
+                    </figure>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <figure>
+                      <img
+                        src="../images/step1/dusaf.png"
+                        alt=""
+                        style="max-width: 100%; height: auto"
+                      />
+                      <figcaption>
+                        Land use and land cover<br />A regional product (DUSAF
+                        6.) is used. It is based on aerial photogrammetry and
+                        represents eight classes.
+                      </figcaption>
+                    </figure>
+                  </div>
+                  <div class="col">
+                    <figure>
+                      <img
+                        src="../images/step1/rivers.png"
+                        alt=""
+                        style="max-width: 100%; height: auto"
+                      />
+                      <figcaption>
+                        Rivers<br />For each river network, buffer zones were
+                        produced at 50, 100, 200, 500, and more than 500 m.
+                      </figcaption>
+                    </figure>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col">
+                    <figure>
+                      <img
+                        src="../images/step1/roads.png"
+                        alt=""
+                        style="max-width: 100%; height: auto"
+                      />
+                      <figcaption>
+                        Roads<br />Road networks. For each road network, buffer
+                        zones were produced at 50, 100, 200, 500, and more than
+                        500 m.
+                      </figcaption>
+                    </figure>
+                  </div>
+                  <div class="col">
+                    <figure>
+                      <img
+                        src="../images/step1/faults.png"
+                        alt=""
+                        style="max-width: 100%; height: auto"
+                      />
+                      <figcaption>
+                        Geological Faults<br />For each fault, buffer zones were
+                        produced at 50, 100, 200, 500, and more than 500 m.
+                      </figcaption>
+                    </figure>
+                  </div>
+                </div>
+                <!--Computed Data-->
+                <h3 style="text-align: center; margin-top: 3em">
+                  Computed Data From DTM
+                </h3>
+                <div class="container text-center">
+                  <div class="row">
+                    <div class="col">
+                      <figure>
+                        <img
+                          src="../images/step1/slope.png"
+                          alt=""
+                          style="max-width: 100%; height: auto"
+                        />
+                        <figcaption>
+                          Slope<br />The angle of slope is in a strong
+                          relationship with the occurrence of landslides. With
+                          the increase of the angle the shear stress is
+                          increasing and, the possibility of a movement is
+                          higher.
+                        </figcaption>
+                      </figure>
+                    </div>
+                    <div class="col">
+                      <figure>
+                        <img
+                          src="../images/step1/aspect.png"
+                          alt=""
+                          style="max-width: 100%; height: auto"
+                        />
+                        <figcaption>
+                          Aspect<br />depicts the direction of the slope. The
+                          orientation of the slope is related to the soil
+                          moisture content and vegetation density.
+                        </figcaption>
+                      </figure>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col">
+                      <figure>
+                        <img
+                          src="../images/step1/plan.png"
+                          alt=""
+                          style="max-width: 100%; height: auto"
+                        />
+                        <figcaption>
+                          Plan Curvature<br />The Plan curvature is
+                          perpendicular to the direction of the maximum slope.
+                          Planform curvature relates to the convergence and
+                          divergence of flow across a surface.
+                        </figcaption>
+                      </figure>
+                    </div>
+                    <div class="col">
+                      <figure>
+                        <img
+                          src="../images/step1/profile.png"
+                          alt=""
+                          style="max-width: 100%; height: auto"
+                        />
+                        <figcaption>
+                          Profile Curvature<br />The Profile curvature is
+                          parallel to the slope and indicates the direction of
+                          maximum slope. It affects the acceleration and
+                          deceleration of flow across the surface.
+                        </figcaption>
+                      </figure>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <!-- Footer -->
+      <footer id="footer">
+        <ul class="copyright">
+          <li>&copy; My WebGIS</li>
+          <li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+        </ul>
+      </footer>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/js/jquery.min.js"></script>
+    <script src="/js/jquery.dropotron.min.js"></script>
+    <script src="/js/jquery.scrolly.min.js"></script>
+    <script src="/js/jquery.scrollex.min.js"></script>
+    <script src="/js/browser.min.js"></script>
+    <script src="/js/breakpoints.min.js"></script>
+    <script src="/js/util.js"></script>
+    <script src="/js/main.js"></script>
+  </body>
+</html>
