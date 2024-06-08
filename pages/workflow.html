@@ -265,10 +265,40 @@
                   For futher operations, we merged 2 layer into 1 layer and
                   randomly selected 1000 points(350 points/150 points from each
                   of the two layers to form the training/testing set
-                  respectively.) in total inside the polygons.<br /><br />Here
-                  is the result:
+                  respectively.) in total inside the polygons.
                 </strong>
               </p>
+              <table class="table" style="text-align: center">
+                <thead>
+                  <tr>
+                    <th scope="col">Train_Test</th>
+                    <th scope="col">Hazard</th>
+                    <th scope="col">Number of Points</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">Training</th>
+                    <td>1(NLZ)</td>
+                    <td>350</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Training</th>
+                    <td>2(LZ)</td>
+                    <td>350</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Testing</th>
+                    <td>1(NLZ)</td>
+                    <td>150</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Testing</th>
+                    <td>2()LZ</td>
+                    <td>150</td>
+                  </tr>
+                </tbody>
+              </table>
               <figure style="text-align: center">
                 <img
                   src="../images/step1/Train_Test_Points.png"
@@ -277,6 +307,110 @@
                 />
                 <figcaption>Training/Testing Points</figcaption>
               </figure>
+            </div>
+          </div>
+        </div>
+
+        <!--Step2-->
+        <div class="wrapper style4 container">
+          <!-- Content -->
+
+          <div>
+            <div>
+              <h2 style="text-align: center">
+                Step2 Susceptibility Map Generation
+              </h2>
+              <p style="margin-top: 3em">
+                <strong>
+                  For the generation of the susceptibility map we use Dzetsaka
+                  plugin in QGIS with random forest. To generate the
+                  susceptibility map, we used raster calculator to convert
+                  classification and confidence to probability. Then we
+                  validated the accuracy of the our output using python
+                  script.</strong
+                >
+              </p>
+              <figure style="text-align: center">
+                <img
+                  src="../images/step2/LandslideSusceptibilityMap.png"
+                  alt=""
+                  style="width: 50%; height: auto"
+                />
+                <figcaption>Susceptibility Map</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <!--Step3-->
+        <div class="wrapper style4 container">
+          <!-- Content -->
+
+          <div>
+            <div>
+              <h2 style="text-align: center">
+                Step3 Data preprocessing for exposure assessment
+              </h2>
+              <p style="margin-top: 3em">
+                <strong>
+                  To analyze the exposure assessment we downloaded the
+                  population raster dataset (WorldPop map) and we reprojected
+                  the population raster dataset using the same CRS of layers
+                  obtained in the previous steps. We reclassified the
+                  susceptibility raster map to 4 classes:</strong
+                >
+              </p>
+              <table class="table" style="text-align: center">
+                <thead>
+                  <tr>
+                    <th scope="col">Probability</th>
+                    <th scope="col">Class</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">[0,25)</th>
+                    <td>Low</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">[25,50)</th>
+                    <td>Moderate</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">[50,75)</th>
+                    <td colspan="2">High</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">[75,100]</th>
+                    <td colspan="2">Very High</td>
+                  </tr>
+                </tbody>
+              </table>
+              <figure style="text-align: center">
+                <img
+                  src="../images/step3/LandslideSusceptibilityMap_reclass.png"
+                  alt=""
+                  style="width: 50%; height: auto"
+                />
+                <figcaption>Susceptibility Map Reclassified</figcaption>
+              </figure>
+            </div>
+          </div>
+        </div>
+
+        <!--Step4-->
+        <div class="wrapper style4 container">
+          <!-- Content -->
+
+          <div>
+            <div>
+              <h2 style="text-align: center">Step4 Exposure Assessment</h2>
+              <p style="margin-top: 3em">
+                <strong>
+                  For the last step, we used QGIS Raster layer zonal statistics
+                  tool to compute the population count in each class.</strong
+                >
+              </p>
             </div>
           </div>
         </div>
