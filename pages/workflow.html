@@ -54,7 +54,14 @@
             <div>
               <h2 style="text-align: center">Step1 Data Preprocessing</h2>
               <!--Origin Data-->
-              <h3 style="text-align: center">Origin Data</h3>
+              <p>
+                <strong>
+                  For all the origin data, we clip all of them considering only
+                  the region of interest and we checked that the pixel size and
+                  CRS of all layers were coherent.</strong
+                >
+              </p>
+              <h3 style="text-align: center">Basic Data</h3>
               <div class="container text-center">
                 <div class="row">
                   <div class="col">
@@ -143,6 +150,7 @@
                     </figure>
                   </div>
                 </div>
+
                 <!--Computed Data-->
                 <h3 style="text-align: center; margin-top: 3em">
                   Computed Data From DTM
@@ -213,7 +221,62 @@
                     </div>
                   </div>
                 </div>
+
+                <!--LZ and NLZ-->
+                <h3 style="text-align: center; margin-top: 3em">
+                  Landslide Zone and Non Landslide Zone
+                </h3>
+                <div class="container text-center">
+                  <div class="row">
+                    <div class="col">
+                      <figure>
+                        <img
+                          src="../images/step1/LZ_unioned.png"
+                          alt=""
+                          style="max-width: 100%; height: auto"
+                        />
+                        <figcaption>Landslide Zone</figcaption>
+                      </figure>
+                    </div>
+                    <div class="col">
+                      <figure>
+                        <img
+                          src="../images/step1/NLZ.png"
+                          alt=""
+                          style="max-width: 100%; height: auto"
+                        />
+                        <figcaption>Non Landslide Zone</figcaption>
+                      </figure>
+                    </div>
+                  </div>
+                </div>
               </div>
+              <p style="margin-top: 3em">
+                <strong>
+                  We used the landslide inventory to define the landslide zone.
+                  And for non landslide zone, We defined this areas as the
+                  slopes with angle smaller then 20° or grater then 70° using
+                  the raster calculator. Because of some overlappings between LZ
+                  and NLZ, we remove all the overlapping parts from the NLZ. And
+                  because there were too many small patches of pixels, we
+                  removed them with a threshold of 25. Thereby, we obtain the
+                  final LZ and NLZ.<br /><br />Then, we split both zones into
+                  training dataset and testing dataset with a ration of 70%/30%.
+                  For futher operations, we merged 2 layer into 1 layer and
+                  randomly selected 1000 points(350 points/150 points from each
+                  of the two layers to form the training/testing set
+                  respectively.) in total inside the polygons.<br /><br />Here
+                  is the result:
+                </strong>
+              </p>
+              <figure style="text-align: center">
+                <img
+                  src="../images/step1/Train_Test_Points.png"
+                  alt=""
+                  style="width: 50%; height: auto"
+                />
+                <figcaption>Training/Testing Points</figcaption>
+              </figure>
             </div>
           </div>
         </div>
