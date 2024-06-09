@@ -15,16 +15,34 @@ import VectorLayer from 'ol/layer/Vector';
 let osm = new Tile({
     type: "base",
     title: "Open Street Maps",
-    visible: true,
+    visible: false,
     source: new OSM()
 });
 
 let SuceptibilityMap = new Image({
-    title: "SusceptibilityMap",
+    title: "Susceptibility Map",
     source: new ImageWMS({
         url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
         params: { 'LAYERS': 'gisgeoserver_08:LandslideSusceptibilityMap'}
     })
+});
+
+let SuceptibilityMapReclass = new Image({
+    title: "Susceptibility Map Reclassified",
+    source: new ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: { 'LAYERS': 'gisgeoserver_08:LandslideSusceptibilityMap_reclass'}
+    }),
+    visible: false
+});
+
+let Population = new Image({
+    title: "Population",
+    source: new ImageWMS({
+        url: 'https://www.gis-geoserver.polimi.it/geoserver/wms',
+        params: { 'LAYERS': 'gisgeoserver_08:population'}
+    }),
+    visible: false
 });
 
 
@@ -37,7 +55,7 @@ let basemapLayers = new Group({
 let overlayLayers = new Group({
     title: "Overlay Layers",
     layers: [
-        SuceptibilityMap,
+        SuceptibilityMap, SuceptibilityMapReclass, Population
     ]
 })
 
@@ -81,7 +99,7 @@ var bingRoads = new Tile({
 var bingAerial = new Tile({
     title: 'Bing Maps—Aerial',
     type: 'base',
-    visible: false,
+    visible: true,
     source: new BingMaps({
         key: BING_MAPS_KEY,
         imagerySet: 'Aerial'
@@ -109,117 +127,117 @@ var stadiaToner = new Tile({
 //basemapLayers.addLayer(stadiaWatercolor);
 basemapLayers.getLayers().extend([stadiaWatercolor, stadiaToner]);
 
-//Add the WFS layer
-let wfsSource = new VectorSource()
-let wfsLayer = new Vector({
-    title: "Colombia water areas",
-    source: wfsSource,
+// //Add the WFS layer
+// let wfsSource = new VectorSource()
+// let wfsLayer = new Vector({
+//     title: "Colombia water areas",
+//     source: wfsSource,
 
-    style: new Style({
-        stroke: new Stroke({
-            color: 'rgb(255, 102, 102)',
-            width: 4
-        })
-    }),
-    zIndex: 9999
-});
-overlayLayers.getLayers().extend([wfsLayer]);
+//     style: new Style({
+//         stroke: new Stroke({
+//             color: 'rgb(255, 102, 102)',
+//             width: 4
+//         })
+//     }),
+//     zIndex: 9999
+// });
+// overlayLayers.getLayers().extend([wfsLayer]);
 
 // This allows to use the function in a callback!
-function loadFeatures(response) {
-    wfsSource.addFeatures(new GeoJSON().readFeatures(response))
-}
-// This is not a good practice, but works for the jsonp.
-window.loadFeatures = loadFeatures;
+// function loadFeatures(response) {
+//     wfsSource.addFeatures(new GeoJSON().readFeatures(response))
+// }
+// // This is not a good practice, but works for the jsonp.
+// window.loadFeatures = loadFeatures;
 
 
-var base_url = "https://www.gis-geoserver.polimi.it/geoserver/gis/ows?";
-var wfs_url = base_url;
-wfs_url += "service=WFS&"
-wfs_url += "version=2.0.0&"
-wfs_url += "request=GetFeature&"
-wfs_url += "typeName=gis%3ACOL_water_areas&"
-wfs_url += "outputFormat=text%2Fjavascript&"
-wfs_url += "srsname=EPSG:3857&"
-wfs_url += "format_options=callback:loadFeatures"
+// var base_url = "https://www.gis-geoserver.polimi.it/geoserver/gis/ows?";
+// var wfs_url = base_url;
+// wfs_url += "service=WFS&"
+// wfs_url += "version=2.0.0&"
+// wfs_url += "request=GetFeature&"
+// wfs_url += "typeName=gis%3ACOL_water_areas&"
+// wfs_url += "outputFormat=text%2Fjavascript&"
+// wfs_url += "srsname=EPSG:3857&"
+// wfs_url += "format_options=callback:loadFeatures"
 
-console.log(wfs_url);
+// console.log(wfs_url);
 
-map.once('postrender', (event) => {
-    // Load the WFS layer
-    $.ajax({ url: wfs_url, dataType: 'jsonp' });
+// map.once('postrender', (event) => {
+//     // Load the WFS layer
+//     $.ajax({ url: wfs_url, dataType: 'jsonp' });
     
-})
+// })
 
-//Add the code for the Pop-up
-var container = document.getElementById('popup');
-var content = document.getElementById('popup-content');
-var closer = document.getElementById('popup-closer');
+// //Add the code for the Pop-up
+// var container = document.getElementById('popup');
+// var content = document.getElementById('popup-content');
+// var closer = document.getElementById('popup-closer');
 
-var popup = new Overlay({
-    element: container
-});
-map.addOverlay(popup);
+// var popup = new Overlay({
+//     element: container
+// });
+// map.addOverlay(popup);
 
-// The click event handler for closing the popup.
-// This ensures that JQuery ($) is already available in the page.
-$(document).ready(function () {
-    map.on('singleclick', function (event) {
-        //This iterates over all the features that are located on the pixel of the click (can be many)
-        var feature = map.forEachFeatureAtPixel(event.pixel, function (feature, layer) {
-            return feature;
-        });
+// // The click event handler for closing the popup.
+// // This ensures that JQuery ($) is already available in the page.
+// $(document).ready(function () {
+//     map.on('singleclick', function (event) {
+//         //This iterates over all the features that are located on the pixel of the click (can be many)
+//         var feature = map.forEachFeatureAtPixel(event.pixel, function (feature, layer) {
+//             return feature;
+//         });
 
-        //If there is a feature, open the popup by setting a position to it and put the data from the feature
-        if (feature != null) {
-            var pixel = event.pixel;
-            var coord = map.getCoordinateFromPixel(pixel);
-            popup.setPosition(coord);
-            content.innerHTML =
-                '<h5>Colombia Water Areas</h5><br><b>Name: </b>' +
-                feature.get('NAME') +
-                '</br><b>Description: </b>' +
-                feature.get('HYC_DESCRI');
-        } else {
-            //Only if the colombiaRoads layer is visible, do the GetFeatureInfo request
-            if (colombiaRoads.getVisible()) {
-                var viewResolution = (map.getView().getResolution());
-                var url = colombiaRoads.getSource().getFeatureInfoUrl(event.coordinate, viewResolution, 'EPSG:3857', { 'INFO_FORMAT': 'text/html' });
-                console.log(url);
+//         //If there is a feature, open the popup by setting a position to it and put the data from the feature
+//         if (feature != null) {
+//             var pixel = event.pixel;
+//             var coord = map.getCoordinateFromPixel(pixel);
+//             popup.setPosition(coord);
+//             content.innerHTML =
+//                 '<h5>Colombia Water Areas</h5><br><b>Name: </b>' +
+//                 feature.get('NAME') +
+//                 '</br><b>Description: </b>' +
+//                 feature.get('HYC_DESCRI');
+//         } else {
+//             //Only if the colombiaRoads layer is visible, do the GetFeatureInfo request
+//             if (colombiaRoads.getVisible()) {
+//                 var viewResolution = (map.getView().getResolution());
+//                 var url = colombiaRoads.getSource().getFeatureInfoUrl(event.coordinate, viewResolution, 'EPSG:3857', { 'INFO_FORMAT': 'text/html' });
+//                 console.log(url);
 
-                if (url) {
-                    var pixel = event.pixel;
-                    var coord = map.getCoordinateFromPixel(pixel);
-                    popup.setPosition(coord);
-                    //We do again the AJAX request to get the data from the GetFeatureInfo request
-                    $.ajax({ url: url })
-                        .done((data) => {
-                            //Put the data of the GetFeatureInfo response inside the pop-up
-                            //The data that arrives is in HTML
-                            content.innerHTML = data;
-                        });
-                }
-            }
-        }
-    });
-});
+//                 if (url) {
+//                     var pixel = event.pixel;
+//                     var coord = map.getCoordinateFromPixel(pixel);
+//                     popup.setPosition(coord);
+//                     //We do again the AJAX request to get the data from the GetFeatureInfo request
+//                     $.ajax({ url: url })
+//                         .done((data) => {
+//                             //Put the data of the GetFeatureInfo response inside the pop-up
+//                             //The data that arrives is in HTML
+//                             content.innerHTML = data;
+//                         });
+//                 }
+//             }
+//         }
+//     });
+// });
 
 
 
-// Adding map event for pointermove
-// The click event handler for closing the popup.
-closer.onclick = function () {
-    popup.setPosition(undefined);
-    closer.blur(); 
-    return false;
-};
+// // Adding map event for pointermove
+// // The click event handler for closing the popup.
+// closer.onclick = function () {
+//     popup.setPosition(undefined);
+//     closer.blur(); 
+//     return false;
+// };
 
-map.on('pointermove', function(event){
-    var pixel = map.getEventPixel(event.originalEvent);
-    var hit = map.hasFeatureAtPixel(pixel);
-    map.getTarget().style.cursor = hit ? 'pointer' : '';
-});
+// map.on('pointermove', function(event){
+//     var pixel = map.getEventPixel(event.originalEvent);
+//     var hit = map.hasFeatureAtPixel(pixel);
+//     map.getTarget().style.cursor = hit ? 'pointer' : '';
+// });
 
-map.on('moveend', function(event){
-    console.log("moved map");
-});
+// map.on('moveend', function(event){
+//     console.log("moved map");
+// });
